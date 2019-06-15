@@ -5,6 +5,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -24,16 +27,14 @@ import { ListProjectComponent } from './list-project/list-project.component';
 import { ViewTaskComponent } from './view-task/view-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import { UserNameFilterPipePipe } from './pipe/user-name-filter-pipe.pipe';
 
 
 
 
 @NgModule({
     declarations: [
-        AppComponent,
-
-        
-        
+        AppComponent,        
         EditUserComponent,
         ListUserComponent,
         AddUserComponent,
@@ -42,12 +43,15 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
         ListProjectComponent,
         ViewTaskComponent,
         EditTaskComponent,
-        EditProjectComponent        
+        EditProjectComponent,
+        UserNameFilterPipePipe        
 
     ],
     imports: [
         BrowserModule,
-        
+        Ng2SearchPipeModule, 
+        Ng2OrderModule,
+        NgxPaginationModule,
         AppRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,

@@ -15,6 +15,7 @@ export class AddUserComponent implements OnInit {
 
     addForm: FormGroup;
     submitted = false;
+    lastName : string;
 
 
     ngOnInit() {
