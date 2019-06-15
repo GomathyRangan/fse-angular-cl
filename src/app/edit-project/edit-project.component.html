@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="col-sm-8 form-group-lg">
+        <form [formGroup]="editProjectForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="error.isError" class="alert alert-danger">
+                {{ error.errorMessage }}
+            </div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td>Project:</td>
+                        <td colspan="166"><input formControlName="projectName" placeholder="Project Name"
+                                name="projectName" class="form-control" id="projectName"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <ng-container>
+
+
+                            <td colspan="60">
+                                <input formControlName="startDate" class="form-control" name="startDate"
+                                    placeholder="Start Date" ngModel [valueAsDate] type="date"></td>
+
+                            <td colspan="60">
+                                <input formControlName="endDate" name="endDate" placeholder="End Date"
+                                    class="form-control" ngModel [valueAsDate] type="date" (blur)="compareTwoDates()">
+                            </td>
+
+                        </ng-container>
+
+                    </tr>
+                    <tr>
+                        <td>Priority:</td>
+                        <td colspan="160"><input formControlName="priority" class="form-control" type="range"
+                                name="priority" min="0" max="30" value="20">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Manager:</td>
+                        <td colspan="140"><input formControlName="manager" placeholder="Manager" name="manager"
+                                class="form-control" id="manager"></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="140"></td>
+                        <td><button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
+                        </td>
+                        <td><button type="reset" class="btn btn-success" id="reset-btn"
+                                ng-click="reset()">Reset</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<div>
+    <app-list-project></app-list-project>
+</div>
+
+

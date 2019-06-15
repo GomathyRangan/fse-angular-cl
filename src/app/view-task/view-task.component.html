@@ -1,0 +1,27 @@
+<div class="col-md-10">
+    <h2> Task Details</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="hidden">TaskId</th>
+                <th>Task</th>
+                <th>Parent</th>
+                <th>Priority</th>
+                <th>Start </th>
+                <th>End </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let task of tasks">
+                <td class="hidden">{{task.taskId}}</td>
+                <td>{{task.task}}</td>
+                <td>{{task.parentTask}}</td>
+                <td>{{task.priority}}</td>
+                <td>{{task.startDate}}</td>
+                <td>{{task.endDate}}</td>
+                <td><button class="btn btn-danger" (click)="editTask(task)" >Edit</button></td>
+                <td><button class="btn btn-danger" (click)="endTask(task)" >End Task</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

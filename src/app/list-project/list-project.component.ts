@@ -31,10 +31,10 @@ export class ListProjectComponent implements OnInit {
     };
 
     editProject(project: Project): void {
-        console.log("Delete-project :: ", JSON.stringify(project));
+        console.log("edit-project :: ", JSON.stringify(project));
         localStorage.removeItem("editProjectId");
         localStorage.setItem("editProjectId", project.projectId.toString());
-        this.router.navigate(['edit-user']);
+        this.router.navigate(['edit-project']);
     };
 
     addProject(): void {

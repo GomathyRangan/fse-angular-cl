@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  selector: 'app-edit-task',
+  templateUrl: './edit-task.component.html',
+  styleUrls: ['./edit-task.component.css']
 })
-export class AddTaskComponent implements OnInit {
+export class EditTaskComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private taskService: TaskService) { }
 
-    addTaskForm: FormGroup;
+    editTaskForm: FormGroup;
 
     ngOnInit() {
 
-        this.addTaskForm = this.formBuilder.group({
+        this.editTaskForm = this.formBuilder.group({
             taskId: [],
             parentId: ['', Validators.required],
             projectId: ['', Validators.required],
@@ -30,10 +30,11 @@ export class AddTaskComponent implements OnInit {
     }
 
     onSubmit() {
-        this.taskService.createTask(this.addTaskForm.value)
+        this.taskService.editTask(this.editTaskForm.value)
             .subscribe(data => {
-                console.log("Add-TAsk After Create: ", JSON.stringify(data));
-                this.router.navigate(['add-task']);
+                console.log("Edit-TAsk After Create: ", JSON.stringify(data));
+                this.router.navigate(['view-task']);
             });
     }
+
 }

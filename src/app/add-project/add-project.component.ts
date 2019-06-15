@@ -8,6 +8,7 @@ import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
 import { Project } from '../model/project.model';
+import { stringify } from '@angular/core/src/util';
 
 @Component({
     selector: 'app-add-project',
@@ -20,8 +21,9 @@ export class AddProjectComponent implements OnInit {
     addProjectForm: FormGroup;
     closeResult: string;
     projects: Project[];
+    projectName: string;
 
-    constructor(private formBuilder: FormBuilder, private router: Router,  private projectService: ProjectService, private modalService: NgbModal) {
+    constructor(private formBuilder: FormBuilder, private router: Router, private projectService: ProjectService, private modalService: NgbModal) {
         this.startDate = new Date();
         this.endDate = new Date();
         this.startDate.setDate(this.startDate.getDate());
@@ -44,29 +46,63 @@ export class AddProjectComponent implements OnInit {
 
 
     }
-    onSubmit() {
-         console.log("Add-project Before Project: ", this.addProjectForm.value);
-        this.projectService.createProject(this.addProjectForm.value)
-            .subscribe(data => {
-                console.log("Add-project After Project: ", JSON.stringify(data));
-                this.router.navigate(['add-project']);
-            });
-    }
-    open(content) {
-        this.modalService.open(content, { ariaLabelledBy: 'add-project.component-title' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-    }
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
+    get formControls() { return this.addProjectForm.controls; }
+
+    error: any = { isError: false, errorMessage: '' };
+
+    compareTwoDates() {
+        if (new Date(this.addProjectForm.controls['endDate'].value) < new Date(this.addProjectForm.controls['startDate'].value)) {
+            this.error = {
+                isError: true, errorMessage: 'End Date shoule be greater than start date.'
+            };
         }
     }
+
+
+    onSubmit() {
+        console.log("Add-project Before Project: ", this.addProjectForm.value);
+ console.log("Add-project Before Project: ", this.addProjectForm.controls['startDate'].value === '');
+        if (this.addProjectForm.controls['projectName'].value === '') {
+            this.error = {
+                isError: true, errorMessage: 'Project Name is required.'
+            };
+            return;
+        } else if (this.addProjectForm.controls['startDate'].value === '' || this.addProjectForm.controls['endDate'].value === '') {
+
+            this.error = {
+                isError: true, errorMessage: 'Enter value for both Start Date and end Date'
+            };
+            return;
+        }
+        else {
+             this.error = {
+                isError: false, errorMessage: ''
+            };
+            this.projectService.createProject(this.addProjectForm.value)
+                .subscribe(data => {
+                    console.log("Add-project After Project: ", JSON.stringify(data));
+                    this.router.navigate(['add-project']);
+                });
+
+        }
+    
+}
+open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'add-project.component-title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+}
+
+    private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+    } else {
+        return `with: ${reason}`;
+    }
+}
 }

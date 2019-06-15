@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-sm-10 form-group-lg">
-        <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
             <table class="table table-borderless">
                 <tbody>
 
@@ -8,7 +8,7 @@
                         <td style="font:bold;font-size: 12pt;text-align: center">Project:</td>
                         <td colspan="166"><input formControlName="projectId" placeholder="Project Name"
                                 name="projectNId" class="form-control" id="projectId"></td>
-                      
+                       
                     </tr>
                     <tr>
                         <td style="font:bold;font-size: 12pt;text-align: center">Task:</td>
@@ -26,7 +26,7 @@
                         <td style="font:bold;font-size: 12pt;text-align: center">Parent Task:</td>
                         <td colspan="166"> <input formControlName="parentId" placeholder="Parent Task" name="parentId"
                                 class="form-control" id="parentId"></td>
-                    
+                      
                     </tr>
                     <tr>
                         <td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
@@ -40,11 +40,11 @@
                         <td style="font:bold;font-size: 12pt;text-align: center">User:</td>
                         <td colspan="166"> <input formControlName="userId" placeholder="Task" name="userId"
                                 class="form-control" id="userId"></td>
-                     
+                  
                     </tr>
                     <tr>
                         <td colspan="140"></td>
-                        <td><button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Add</button>
+                        <td><button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
                         </td>
                         <td><button type="reset" class="btn btn-success" id="reset-btn"
                                 ng-click="reset()">Reset</button>
@@ -55,3 +55,4 @@
         </form>
     </div>
 </div>
+

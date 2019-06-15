@@ -32,7 +32,7 @@ export class ProjectService {
     }
 
     getProjectById(id: number) {
-        return this.http.get<User>(this.baseUrl + '/' + id);
+        return this.http.get<User>(this.baseUrl + 'getProjectById/' + id);
     }
 
     createProject(project: Project) {

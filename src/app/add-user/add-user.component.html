@@ -4,19 +4,29 @@
             <div class="form-group">
                 <label for="firstName">First Name:</label>
                 <input formControlName="firstName" placeholder="First Name" name="firstName" class="form-control"
-                    id="firstName">
+                    id="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                </div>
+
             </div>
             <div class="form-group">
                 <label for="lastName">Last Name:</label>
                 <input formControlName="lastName" placeholder="Last Name" name="lastName" class="form-control"
-                    id="lastName">
+                    id="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="employeeId">Employee Id:</label>
                 <input type="employeeId" formControlName="employeeId" placeholder="Employee Id" name="employeeId"
-                    class="form-control" id="employeeId">
+                    class="form-control" id="employeeId"  [ngClass]="{ 'is-invalid': submitted && f.employeeId.errors }">
+                      <div *ngIf="submitted && f.employeeId.errors" class="invalid-feedback">
+                    <div *ngIf="f.employeeId.errors.required">EmployeeId is required</div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Submit</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Add</button>
             <button type="reset" class="btn btn-success" id="reset-btn" ng-click="reset()">Reset</button>
         </form>
     </div>
