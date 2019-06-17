@@ -1,6 +1,9 @@
 <div class="container">
     <div class="col-sm-10 form-group-lg">
         <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit()">
+			  <div *ngIf="error.isError" class="alert alert-danger">
+                {{ error.errorMessage }}
+            </div>
             <table class="table table-borderless">
                 <tbody>
 
@@ -32,9 +35,9 @@
                         <td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
                         <td> <input formControlName="startDate" class="form-control" name="startDate"
                                 placeholder="Start Date" ngModel [valueAsDate]></td>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
+                        <td style="font:bold;font-size: 12pt;text-align: center">End Date:</td>
                         <td> <input formControlName="endDate" class="form-control" name="endDate" placeholder="End Date"
-                                ngModel [valueAsDate]></td>
+                                ngModel [valueAsDate] (blur)="compareTwoDates()"></td>
                     </tr>
                     <tr>
                         <td style="font:bold;font-size: 12pt;text-align: center">User:</td>

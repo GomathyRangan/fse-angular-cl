@@ -1,58 +1,61 @@
 <div class="container">
-    <div class="col-sm-10 form-group-lg">
-        <form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
-            <table class="table table-borderless">
-                <tbody>
+	<div class="col-sm-10 form-group-lg">
+		<form [formGroup]="editTaskForm" (ngSubmit)="onSubmit()">
+			<div *ngIf="error.isError" class="alert alert-danger">
+				{{ error.errorMessage }}
+			</div>
+			<table class="table table-borderless">
+				<tbody>
 
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Project:</td>
-                        <td colspan="166"><input formControlName="projectId" placeholder="Project Name"
-                                name="projectNId" class="form-control" id="projectId"></td>
-                       
-                    </tr>
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Task:</td>
-                        <td colspan="166"> <input formControlName="task" placeholder="Task" name="task"
-                                class="form-control" id="task">
-                        </td>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">Project:</td>
+						<td colspan="166"><input formControlName="projectId" placeholder="Project Name"
+								name="projectNId" class="form-control" id="projectId"></td>
 
-                    </tr>
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Priority:</td>
-                        <td colspan="166"><input formControlName="priority" class="form-control" type="range"
-                                name="priority" min="0" max="30" value="20"></td>
-                    </tr>
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Parent Task:</td>
-                        <td colspan="166"> <input formControlName="parentId" placeholder="Parent Task" name="parentId"
-                                class="form-control" id="parentId"></td>
-                      
-                    </tr>
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
-                        <td> <input formControlName="startDate" class="form-control" name="startDate"
-                                placeholder="Start Date" ngModel [valueAsDate]></td>
-                        <td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
-                        <td> <input formControlName="endDate" class="form-control" name="endDate" placeholder="End Date"
-                                ngModel [valueAsDate]></td>
-                    </tr>
-                    <tr>
-                        <td style="font:bold;font-size: 12pt;text-align: center">User:</td>
-                        <td colspan="166"> <input formControlName="userId" placeholder="Task" name="userId"
-                                class="form-control" id="userId"></td>
-                  
-                    </tr>
-                    <tr>
-                        <td colspan="140"></td>
-                        <td><button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
-                        </td>
-                        <td><button type="reset" class="btn btn-success" id="reset-btn"
-                                ng-click="reset()">Reset</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
+					</tr>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">Task:</td>
+						<td colspan="166"> <input formControlName="task" placeholder="Task" name="task"
+								class="form-control" id="task">
+						</td>
+
+					</tr>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">Priority:</td>
+						<td colspan="166"><input formControlName="priority" class="form-control" type="range"
+								name="priority" min="0" max="30" value="20"></td>
+					</tr>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">Parent Task:</td>
+						<td colspan="166"> <input formControlName="parentId" placeholder="Parent Task" name="parentId"
+								class="form-control" id="parentId"></td>
+
+					</tr>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">Start Date:</td>
+						<td> <input formControlName="startDate" class="form-control" name="startDate" type="date"
+								placeholder="Start Date" ngModel [valueAsDate]></td>
+						<td style="font:bold;font-size: 12pt;text-align: center">End Date:</td>
+						<td> <input formControlName="endDate" class="form-control" name="endDate" placeholder="End Date"
+								type="date" ngModel [valueAsDate] (blur)="compareTwoDates()"></td>
+					</tr>
+					<tr>
+						<td style="font:bold;font-size: 12pt;text-align: center">User:</td>
+						<td colspan="166"> <input formControlName="userId" placeholder="Task" name="userId"
+								class="form-control" id="userId"></td>
+
+					</tr>
+					<tr>
+						<td colspan="140"></td>
+						<td><button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Update</button>
+						</td>
+						<td><button type="reset" class="btn btn-success" id="reset-btn"
+								ng-click="reset()">Reset</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
 </div>
 
