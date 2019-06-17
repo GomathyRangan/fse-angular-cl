@@ -15,7 +15,6 @@ export class AddUserComponent implements OnInit {
 
     addForm: FormGroup;
     submitted = false;
-    lastName : string;
 
 
     ngOnInit() {
@@ -29,7 +28,9 @@ export class AddUserComponent implements OnInit {
 
     }
 
-    get f() { return this.addForm.controls; }
+	get f() { return this.addForm.controls; }
+	
+
 
 
     onSubmit() {

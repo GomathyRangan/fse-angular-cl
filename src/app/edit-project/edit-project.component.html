@@ -9,7 +9,7 @@
                     <tr>
                         <td>Project:</td>
                         <td colspan="166"><input formControlName="projectName" placeholder="Project Name"
-                                name="projectName" class="form-control" id="projectName"></td>
+                                name="projectName" class="form-control" id="projectName" [(ngModel)]="project.projectName"></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -31,14 +31,14 @@
                     <tr>
                         <td>Priority:</td>
                         <td colspan="160"><input formControlName="priority" class="form-control" type="range"
-                                name="priority" min="0" max="30" value="20">
+                                name="priority" min="0" max="30" value="20" [(ngModel)]="project.priority">
 
                         </td>
                     </tr>
                     <tr>
                         <td>Manager:</td>
                         <td colspan="140"><input formControlName="manager" placeholder="Manager" name="manager"
-                                class="form-control" id="manager"></td>
+                                class="form-control" id="manager" [(ngModel)]="project.manager"></td>
 
                     </tr>
                     <tr>

@@ -1,30 +1,55 @@
-    <div class="col-md-8">
-        <h2> Project Details</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="hidden">Id</th>
-                    <th>Project</th>
-                    <th>No. Of Tasks</th>
-                    <th>Status</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Priority</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let project of projects">
-                    <td class="hidden">{{project.projectId}}</td>
-                    <td>{{project.projectName}}</td>
-                    <td>{{project.noOfTask}}</td>
-                    <td>{{project.status}}</td>
-                    <td>{{project.startDate}}</td>
-                    <td>{{project.endDate}}</td>
-                    <td>{{project.priority}}</td>
-                    <td><button class="btn btn-danger" (click)="deleteProject(project)"> Suspend</button>
-                        <button class="btn btn-danger" (click)="editProject(project)" style="margin-left: 20px;"> Update</button>  
-                    </td> 
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+
+		<h2> Project Details</h2>
+		<div class="row">
+
+			<nav class="navbar">
+				<input class="form-control" type="text" name="search" [(ngModel)]="searchTerm"
+					placeholder="Search By Project Name" style="width:300px;">
+			</nav>
+		</div>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="hidden">Id</th>
+						<th (click)="sort('projectName')">Project
+						<span class="glyphicon sort-icon" *ngIf="key =='projectName'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>  </th>
+						<th (click)="sort('noOfTask')">No. Of Tasks
+						<span class="glyphicon sort-icon" *ngIf="key =='noOfTask'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span> </th>
+						<th (click)="sort('status')">Status
+						<span class="glyphicon sort-icon" *ngIf="key =='status'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span> </th>
+						<th (click)="sort('startDate')">Start Date
+						<span class="glyphicon sort-icon" *ngIf="key =='startDate'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+						<th (click)="sort('endDate')">End Date
+						<span class="glyphicon sort-icon" *ngIf="key =='endDate'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+						<th (click)="sort('priority')">Priority
+						<span class="glyphicon sort-icon" *ngIf="key =='priority'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						*ngFor="let project of projects | orderBy: key : reverse | projectNameFilter:searchTerm | paginate: { itemsPerPage: 10, currentPage: p };">
+						<td class="hidden">{{project.projectId}}</td>
+						<td>{{project.projectName}}</td>
+						<td>{{project.noOfTask}}</td>
+						<td>{{project.status}}</td>
+						<td>{{project.startDate}}</td>
+						<td>{{project.endDate}}</td>
+						<td>{{project.priority}}</td>
+						<td>
+							<button class="btn btn-primary" (click)="editProject(project)" style="margin-left: 20px;">
+								Update</button>&nbsp;
+							<button class="btn btn-danger" (click)="deleteProject(project)"> Suspend</button>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>

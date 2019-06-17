@@ -13,7 +13,9 @@ import { first } from 'rxjs/operators';
 export class EditUserComponent implements OnInit {
 
     user: User;
-    editForm: FormGroup;
+	editForm: FormGroup;
+	submitted = false;
+
     constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService) { }
 
     ngOnInit() {
@@ -32,11 +34,17 @@ export class EditUserComponent implements OnInit {
         });
         this.userService.getUserById(+userId)
             .subscribe(data => {
+				  this.user = data;
                 this.editForm.setValue(data);
             });
     }
 
     onSubmit() {
+		this.submitted = true;
+
+        if (this.editForm.invalid) {
+            return;
+        } else {
         this.userService.updateUser(this.editForm.value)
             .pipe(first())
             .subscribe(
@@ -46,6 +54,7 @@ export class EditUserComponent implements OnInit {
                 error => {
                     alert(error);
                 });
-    }
+	}
+}
 
 }

@@ -27,6 +27,21 @@ export class AddTaskComponent implements OnInit {
             userId: ['', Validators.required]
         });
 
+	}
+
+	   get formControls() {
+        return this.addTaskForm
+            .controls;
+    }
+
+    error: any = { isError: false, errorMessage: '' };
+	
+		 compareTwoDates() {
+        if (new Date(this.addTaskForm.controls['endDate'].value) < new Date(this.addTaskForm.controls['startDate'].value)) {
+            this.error = {
+                isError: true, errorMessage: 'End Date shoule be greater than start date.'
+            };
+        }
     }
 
     onSubmit() {

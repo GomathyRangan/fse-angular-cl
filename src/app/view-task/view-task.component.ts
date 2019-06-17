@@ -4,37 +4,47 @@ import { Router } from '@angular/router';
 import { TaskService } from '../services/task.service';
 
 @Component({
-  selector: 'app-view-task',
-  templateUrl: './view-task.component.html',
-  styleUrls: ['./view-task.component.css']
+	selector: 'app-view-task',
+	templateUrl: './view-task.component.html',
+	styleUrls: ['./view-task.component.css']
 })
 export class ViewTaskComponent implements OnInit {
 
-  tasks: Task[];
+	tasks: Task[];
 
-    constructor(private router: Router, private taskService: TaskService) { }
+	searchTerm: string;
 
-    ngOnInit() {
-        this.taskService.getTaskDetails()
-            .subscribe(data => {
-                this.tasks = data;
-                console.log("List-User :: ", JSON.stringify(data));
-            });
-    }
+	key: string = 'name'; //set default
+	reverse: boolean = false;
 
-     editTask(task: Task): void {
-        console.log("edit-task id :: :: ",  task.taskId.toString());
-        localStorage.removeItem("editTaskId");
-        localStorage.setItem("taskObj",  task.taskId.toString());
-        this.router.navigate(['edit-task']);
-    };
+	sort(key) {
+		this.key = key;
+		this.reverse = !this.reverse;
+	}
 
-     endTask(task: Task): void {
-        console.log("Delete-project :: ", JSON.stringify(task));
-        this.taskService.endTask(task.taskId)
-            .subscribe(data => {
-                this.tasks = this.tasks.filter(u => u !== task);
-            })
-    };
+	constructor(private router: Router, private taskService: TaskService) { }
+
+	ngOnInit() {
+		this.taskService.getTaskDetails()
+			.subscribe(data => {
+				this.tasks = data;
+				console.log("List-User :: ", JSON.stringify(data));
+			});
+	}
+
+	editTask(task: Task): void {
+		console.log("edit-task id :: :: ", task.taskId.toString());
+		localStorage.removeItem("editTaskId");
+		localStorage.setItem("taskObj", task.taskId.toString());
+		this.router.navigate(['edit-task']);
+	};
+
+	endTask(task: Task): void {
+		console.log("Delete-project :: ", JSON.stringify(task));
+		this.taskService.endTask(task.taskId)
+			.subscribe(data => {
+				this.tasks = this.tasks.filter(u => u !== task);
+			})
+	};
 
 }

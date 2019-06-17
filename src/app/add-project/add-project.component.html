@@ -39,11 +39,11 @@
 
                             <td colspan="60">
                                 <input formControlName="startDate" class="form-control" name="startDate"
-                                    placeholder="Start Date" ngModel [valueAsDate] type="date"></td>
+                                    placeholder="Start Date" type="date" ngModel [valueAsDate]  ></td>
 
                             <td colspan="60">
                                 <input formControlName="endDate" name="endDate" placeholder="End Date"
-                                    class="form-control" ngModel [valueAsDate] type="date" (blur)="compareTwoDates()">
+                                    class="form-control" ngModel [valueAsDate] type="date" (blur)="compareTwoDates()" >
                             </td>
 
                         </ng-container>

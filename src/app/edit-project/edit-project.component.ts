@@ -17,7 +17,8 @@ export class EditProjectComponent implements OnInit {
     endDate: Date;
     editProjectForm: FormGroup;
     closeResult: string;
-    projects: Project[];
+	projects: Project[];
+	project: Project;
     projectName: string;
       
 
@@ -34,6 +35,7 @@ export class EditProjectComponent implements OnInit {
 
         this.projectService.getProjectById(+projectId)
             .subscribe(data => {
+				this.project = data;
                 this.editProjectForm.setValue(data);
             });
         this.editProjectForm = this.formBuilder.group({

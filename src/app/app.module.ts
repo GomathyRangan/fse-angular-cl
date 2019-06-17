@@ -28,6 +28,9 @@ import { ViewTaskComponent } from './view-task/view-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { UserNameFilterPipePipe } from './pipe/user-name-filter-pipe.pipe';
+import { DateFormatterPipe } from './pipe/date-formatter.pipe';
+import { ProjectNameFilterPipe } from './pipe/project-name-filter.pipe';
+import { TaskNameFilterPipe } from './pipe/task-name-filter.pipe';
 
 
 
@@ -44,7 +47,10 @@ import { UserNameFilterPipePipe } from './pipe/user-name-filter-pipe.pipe';
         ViewTaskComponent,
         EditTaskComponent,
         EditProjectComponent,
-        UserNameFilterPipePipe        
+        UserNameFilterPipePipe,
+        DateFormatterPipe,
+        ProjectNameFilterPipe,
+        TaskNameFilterPipe        
 
     ],
     imports: [

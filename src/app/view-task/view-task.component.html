@@ -1,27 +1,53 @@
-<div class="col-md-10">
-    <h2> Task Details</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="hidden">TaskId</th>
-                <th>Task</th>
-                <th>Parent</th>
-                <th>Priority</th>
-                <th>Start </th>
-                <th>End </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let task of tasks">
-                <td class="hidden">{{task.taskId}}</td>
-                <td>{{task.task}}</td>
-                <td>{{task.parentTask}}</td>
-                <td>{{task.priority}}</td>
-                <td>{{task.startDate}}</td>
-                <td>{{task.endDate}}</td>
-                <td><button class="btn btn-danger" (click)="editTask(task)" >Edit</button></td>
-                <td><button class="btn btn-danger" (click)="endTask(task)" >End Task</button></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+	<h2> Task Details</h2>
+	<div class=" row">
+	<nav class="navbar">
+		<input class="form-control" type="text" name="search" [(ngModel)]="searchTerm" placeholder="Search By Task Name"
+			style="width:300px;">
+	</nav>
 </div>
+<div class="row">
+	<pagination-controls (pageChange)="p = $event"></pagination-controls>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th class="hidden">TaskId</th>
+				<th (click)="sort('task')">Task<span class="glyphicon sort-icon" *ngIf="key =='task'"
+						[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+				</th>
+				<th (click)="sort('parentTask')">Parent<span class="glyphicon sort-icon" *ngIf="key =='parentTask'"
+						[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+				</th>
+				<th (click)="sort('priority')">Priority<span class="glyphicon sort-icon" *ngIf="key =='priority'"
+						[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+				</th>
+				<th (click)="sort('startDate')">Start <span class="glyphicon sort-icon" *ngIf="key =='startDate'"
+						[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+				</th>
+				<th (click)="sort('endDate')">End<span class="glyphicon sort-icon" *ngIf="key =='endDate'"
+						[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				*ngFor="let task of tasks | orderBy: key : reverse | taskNameFilter:searchTerm | paginate: { itemsPerPage: 10, currentPage: p };">
+				<td class="hidden">{{task.taskId}}</td>
+				<td>{{task.task}}</td>
+				<td>{{task.parentTask}}</td>
+				<td>{{task.priority}}</td>
+				<td>{{task.startDate}}</td>
+				<td>{{task.endDate}}</td>
+				<td><button class="btn btn-primary" (click)="editTask(task)">Edit</button></td>
+				<td><button class="btn btn-danger" (click)="endTask(task)">End Task</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+

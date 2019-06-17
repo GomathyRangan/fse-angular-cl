@@ -1,55 +1,57 @@
 <div class="container">
-    <h2> User Details</h2>
-    <div class="row">
+	<h2> User Details</h2>
+	<div class="row">
+		<nav class="navbar">
+			<input class="form-control" type="text" name="search" [(ngModel)]="searchTerm"
+				placeholder="Search By First Name" style="width:300px;">
+		</nav>
+	</div>
+	<div class="row">
+		<pagination-controls (pageChange)="p = $event"></pagination-controls>
 
-        <nav class="navbar">
 
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchTerm"
-                placeholder="Search By First Name" style="width:300px;">
+		<table class="table">
 
-        </nav>
+			<thead>
+				<tr>
+					<th class="hidden">Id</th>
+					<th (click)="sort('firstName')">FirstName
+						<span class="glyphicon sort-icon" *ngIf="key =='firstName'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 
+					</th>
+					<th (click)="sort('lastName')">LastName
+						<span class="glyphicon sort-icon" *ngIf="key =='lastName'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 
+					</th>
+					<th (click)="sort('employeeId')">Manager
+						<span class="glyphicon sort-icon" *ngIf="key =='employeeId'"
+							[ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
 
-        <table class="table">
-              <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            <thead>
-                <tr>
-                    <th class="hidden">Id</th>
-                    <th (click)="sort('firstName')">FirstName
-                        <span class="glyphicon sort-icon" *ngIf="key =='firstName'"
-                            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</th>
+					<th>Action</th>
+				</tr>
+			</thead>
 
-                    </th>
-                    <th (click)="sort('lastName')">LastName
-                        <span class="glyphicon sort-icon" *ngIf="key =='lastName'"
-                            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+			<tbody>
+				<tr
+					*ngFor="let user of users  | orderBy: key : reverse | userNameFilterPipe:searchTerm | paginate: { itemsPerPage: 10, currentPage: p };">
+					<td class="hidden">{{user.id}}</td>
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
+					<td>{{user.employeeId}}</td>
+					<td>
+						<button class="btn btn-primary" (click)="editUser(user)"
+							style="margin-left: 20px;">Edit</button>&nbsp;
+						<button class="btn btn-danger" (click)="deleteUser(user)"> Delete</button>
 
-                    </th>
-                    <th (click)="sort('employeeId')">Manager
-                        <span class="glyphicon sort-icon" *ngIf="key =='employeeId'"
-                            [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+					</td>
+				</tr>
+			</tbody>
 
-                    </th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr
-                    *ngFor="let user of users  | orderBy: key : reverse | userNameFilterPipe:searchTerm | paginate: { itemsPerPage: 10, currentPage: p };">
-                    <td class="hidden">{{user.id}}</td>
-                    <td>{{user.firstName}}</td>
-                    <td>{{user.lastName}}</td>
-                    <td>{{user.employeeId}}</td>
-                    <td><button class="btn btn-danger" (click)="deleteUser(user)"> Delete</button>
-                        <button class="btn btn-danger" (click)="editUser(user)" style="margin-left: 20px;">
-                            Edit</button>
-                    </td>
-                </tr>
-            </tbody>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </table>
-    </div>
+		</table>
+		<pagination-controls (pageChange)="p = $event"></pagination-controls>
+	</div>
 </div>
 
